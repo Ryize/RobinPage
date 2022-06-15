@@ -11,13 +11,13 @@ def index(request):
         if form.is_valid():
             try:
                 html_data = requests.get(site_url).text
-                return HttpResponse(html_data)
+                return render(request, 'robin/url_page.html', {'html_data': html_data})
             except requests.exceptions.ConnectionError:
                 messages.error(request, 'Превышено время ожидания подключения к серверу!')
             except (requests.exceptions.InvalidURL, requests.exceptions.MissingSchema):
                 messages.error(request, 'Неверный URL ресурса!')
-            except:
-                messages.error(request, 'Произошла ошибка, повторите попытку!')
+            # except:
+            #     messages.error(request, 'Произошла ошибка, повторите попытку!')
 
         else:
             messages.error(request, 'Вы неверно ввели капчу!')
