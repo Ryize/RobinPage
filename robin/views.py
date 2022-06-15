@@ -16,8 +16,8 @@ def index(request):
                 messages.error(request, 'Превышено время ожидания подключения к серверу!')
             except (requests.exceptions.InvalidURL, requests.exceptions.MissingSchema):
                 messages.error(request, 'Неверный URL ресурса!')
-            # except:
-            #     messages.error(request, 'Произошла ошибка, повторите попытку!')
+            except:
+                messages.error(request, 'Произошла ошибка, повторите попытку!')
 
         else:
             messages.error(request, 'Вы неверно ввели капчу!')

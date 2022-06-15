@@ -2,3 +2,20 @@
   <input type="submit" value="На главную">
 </form>
 {{ html_data|safe }}
+<footer>
+  <p>Данная страница сгенерированна с помощью проекта <a href="https://github.com/Ryize/RobinPage">RobinPage</a></p>
+</footer>
+
+<script>
+    // Высчитываем высоту footer и делаем соответствующий отступ от main:
+    function footer() {
+        const
+            main = document.getElementsByTagName('body')[0],
+            footer = document.getElementsByTagName('footer')[0]
+
+        main.style.paddingBottom = footer.clientHeight + 'px'
+    }
+
+    window.addEventListener('load', footer);
+    window.addEventListener('resize', footer);
+</script>
