@@ -15,8 +15,10 @@ def index(request):
         client_ip = get_client_ip(request)
         form = CaptchaForm(request.POST or None)
         if form.is_valid():
-            if check_requests_per_day(client_ip) > 4:
-                messages.error(request, 'Вы не можете использовать сервис более 3\'х раз в сутки!')
+            if (check_requests_per_day(client_ip) > 4 and not request.user.is_authenticated) or (
+                    check_requests_per_day(client_ip) > 15 and request.user.is_authenticated):
+                messages.error(request,
+                               'Вы не можете использовать сервис так часто! Вы вновь сможете им воспользоваться завтра')
                 return render(request, 'robin/index.html', {'captcha_form': captcha_form})
             try:
                 html_data = requests.get(site_url).text
