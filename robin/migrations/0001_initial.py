@@ -7,21 +7,28 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CopySite',
+            name="CopySite",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('hash_text', models.CharField(max_length=512, verbose_name='Хеш')),
-                ('url', models.URLField(verbose_name='URL')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("hash_text", models.CharField(max_length=512, verbose_name="Хеш")),
+                ("url", models.URLField(verbose_name="URL")),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name': 'Скопированный сайт',
-                'verbose_name_plural': 'Скопированные сайты',
+                "verbose_name": "Скопированный сайт",
+                "verbose_name_plural": "Скопированные сайты",
             },
         ),
     ]
