@@ -60,21 +60,21 @@
                     <div class="formbg-inner padding-horizontal--48">
                         {% if site %}
                             <span class="padding-bottom--15">Сайт успешно найден!</span>
-                                {% csrf_token %}
+                            {% csrf_token %}
+                            <div class="field padding-bottom--24">
+                                <label for="email"><strong>Адрес: </strong></label>
+                                <label for="email"><a href="{{ site.url }}"
+                                                      target="_blank">{{ site.url }}</a></label>
+                            </div>
+                            <div class="field padding-bottom--24">
+                                <label for="email"><strong>Создан: </strong></label>
+                                <label for="email"> {{ site.created_at }}</label>
+                            </div>
+                            <form action="{% url 'index' %}">
                                 <div class="field padding-bottom--24">
-                                    <label for="email"><strong>Адрес: </strong></label>
-                                    <label for="email"><a href="{{ site.url }}"
-                                                          target="_blank">{{ site.url }}</a></label>
+                                    <input type="submit" name="submit" value="На главную">
                                 </div>
-                                <div class="field padding-bottom--24">
-                                    <label for="email"><strong>Создан: </strong></label>
-                                    <label for="email"> {{ site.created_at }}</label>
-                                </div>
-                                <form action="{% url 'index' %}">
-                                    <div class="field padding-bottom--24">
-                                        <input type="submit" name="submit" value="На главную">
-                                    </div>
-                                </form>
+                            </form>
                             </div>
                             </div>
                             <div class="footer-link padding-top--24">
@@ -101,7 +101,6 @@
                         </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 

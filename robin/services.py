@@ -11,7 +11,9 @@ _requests_per_day = {
 
 
 def _check_counter_date(client: dict) -> dict:
-    """If the day of the last request does not coincide with the current, then the request counter is reset to 0."""
+    """
+    If the day of the last request does not coincide with the current, then the request counter is reset to 0.
+    """
     if client["date_last_requests"] != datetime.date.today():
         client["date_last_requests"] = datetime.date.today()
         client["count"] = 0
@@ -31,7 +33,9 @@ def get_client_ip(req) -> str:
 
 
 def check_requests_per_day(client_ip: str) -> int:
-    """Here we get the number of user requests for the last day."""
+    """
+    Here we get the number of user requests for the last day.
+    """
     if not isinstance(client_ip, str):
         raise TypeError("The client_ip parameter must be str")
     client = _requests_per_day.get(client_ip)
@@ -42,7 +46,9 @@ def check_requests_per_day(client_ip: str) -> int:
 
 
 def add_request_from_client(client_ip: str) -> int:
-    """This function is used to increment the client's request counter (_requests_per_day variable)."""
+    """
+    This function is used to increment the client's request counter (_requests_per_day variable).
+    """
     if not isinstance(client_ip, str):
         raise TypeError("The client_ip parameter must be str")
     client = _requests_per_day.get(client_ip)
@@ -58,7 +64,9 @@ def add_request_from_client(client_ip: str) -> int:
 
 
 def clear_request_counter(client_ip: str) -> bool:
-    """This function sets the number of requests from the passed client ip to 0 (_requests_per_day variable)."""
+    """
+    This function sets the number of requests from the passed client ip to 0 (_requests_per_day variable).
+    """
     if not isinstance(client_ip, str):
         raise TypeError("The client_ip parameter must be str")
     client = _requests_per_day.get(client_ip)
