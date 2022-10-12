@@ -10,6 +10,9 @@ from .services import *
 
 
 def index(request):
+    """
+    Главная страница ресурса. Выводит страницу с вводом сайта для копирования.
+    """
     site_url = request.POST.get("site-url", False)
     captcha_form = CaptchaForm()
     if not site_url:
@@ -20,7 +23,7 @@ def index(request):
         messages.error(request, "Вы неверно ввели капчу!")
         return render(request, "robin/index.html", {"captcha_form": captcha_form})
     if (
-        check_requests_per_day(client_ip) > 4 and not request.user.is_authenticated
+            check_requests_per_day(client_ip) > 4 and not request.user.is_authenticated
     ) or (check_requests_per_day(client_ip) > 15 and request.user.is_authenticated):
         messages.error(
             request,
@@ -34,10 +37,16 @@ def index(request):
         copy_site.save()
 
         add_request_from_client(client_ip)
+
+        data = {
+            "html_data": html_data,
+            "hash": copy_site.hash_text
+        }
+
         return render(
             request,
             "robin/url_page.html",
-            {"html_data": html_data, "hash": copy_site.hash_text},
+            data,
         )
     except requests.exceptions.ConnectionError:
         messages.error(request, "Превышено время ожидания подключения к серверу!")
@@ -50,8 +59,14 @@ def index(request):
 
 
 def check_site_hash(request):
+    """
+    Используется для проверки хеша на валидность.
+    В случае успеха, возвращает информацию по хешу (url сайта, дата создания хеша);
+    В случае неудачи, возвращает ошибку с помощью message.error.
+    """
     if request.method == "GET":
         return render(request, "robin/check_site_hash.html")
+
     hash_text = request.POST.get("hash")
     if not hash_text:
         messages.error(request, "Хеш указан неверно!")
